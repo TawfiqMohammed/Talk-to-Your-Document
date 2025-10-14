@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk to Your Document - AI Q&A</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🧠 Talk to Your Document</h1>
+            <p>Upload a PDF or image, extract text, and chat with AI about your document</p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-container" id="uploadContainer">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Drag & drop your file here</div>
+                <div class="upload-hint">or click to browse (PDF, PNG, JPG)</div>
+                <input type="file" id="fileInput" class="file-input" accept=".pdf,image/*">
+            </div>
+
+            <div class="spinner-container" id="spinnerContainer">
+                <div class="spinner"></div>
+                <p class="spinner-text">Processing your document...</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Left Section: PDF Preview -->
+            <div class="left-section">
+                <div class="preview-container">
+                    <h3 class="section-title">📄 Document Preview</h3>
+                    <div class="preview-content" id="previewContent"></div>
+                </div>
+            </div>
+
+            <!-- Right Section: Chat Interface -->
+            <div class="right-section">
+                <div class="chat-section">
+                    <div class="chat-header">
+                        <h3 class="section-title">💬 Chat with Document</h3>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message message-ai">
+                            <div class="message-content">👋 Hello! I've analyzed your document. Ask me anything about it!</div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <input 
+                            type="text" 
+                            class="chat-input" 
+                            id="chatInput" 
+                            placeholder="Ask a question about your document..."
+                        >
+                        <button class="btn btn-primary btn-send" id="sendBtn">
+                            <span>Send</span>
+                            <span>🚀</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Summary Overlay -->
+                <div class="summary-overlay" id="summaryOverlay">
+                    <div class="summary-panel">
+                        <div class="summary-header">
+                            <h3>📝 Document Summary</h3>
+                            <button class="btn-close" id="summaryCloseBtn">✕</button>
+                        </div>
+                        <div class="summary-content" id="summaryContent"></div>
+                        <div class="summary-actions">
+                            <button class="btn btn-primary" id="summaryRegenerateBtn">
+                                🔄 Regenerate
+                            </button>
+                            <button class="btn btn-primary" id="summaryExportBtn">
+                                💾 Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions-container" id="actionsContainer">
+                <button class="btn btn-secondary" id="summarizeBtn">
+                    📝 Summarize
+                </button>
+                <button class="btn btn-secondary" id="newDocBtn">
+                    🆕 New File 
+                </button>
+                <button class="btn btn-secondary" id="exportBtn">
+                    💾 Export Chat
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">
+                    🗑️ Clear Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

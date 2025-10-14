@@ -1,0 +1,22 @@
+# Core FastAPI
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+pydantic==2.5.0
+
+# OCR and Document Processing
+PyMuPDF==1.23.8
+Pillow==10.1.0
+pytesseract==0.3.10
+
+# AI/ML
+sentence-transformers==2.2.2
+chromadb-client
+torch==2.7.1
+transformers==4.35.2
+
+# HTTP Requests
+requests==2.31.0
+
+# Environment Management
+python-dotenv==1.0.0
