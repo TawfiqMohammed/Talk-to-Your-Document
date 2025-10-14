@@ -1,16 +1,12 @@
+--- 
 <div align="center"> 
     <h1>🧠 Talk to Your Document</h1> 
-</div>
-
-<div align="center">
-
+    
 ![Project Banner](https://img.shields.io/badge/AI-Powered-ff69b4?style=for-the-badge)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688?style=for-the-badge&logo=fastapi)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python)
 
 **Upload documents, extract text with OCR, and chat with AI about your content**
-
-[Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Architecture](#-architecture) • [Technologies](#-technologies)
 
 </div>
 
