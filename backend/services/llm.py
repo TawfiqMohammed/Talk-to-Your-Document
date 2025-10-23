@@ -29,46 +29,44 @@ class LLMService:
         Build messages array for LLM with few-shot examples
         """
         if is_summary:
-            system_prompt = """You are a concise document summarizer. Keep summaries under 100 words."""
+            system_prompt = """You are a concise document summarizer. Keep summaries under 300 words."""
             
             messages = [
                 {"role": "system", "content": system_prompt},
                 # Few-shot example
-                {"role": "user", "content": "Summarize this job posting: [long job description text]"},
-                {"role": "assistant", "content": """Job posting for Junior UI/UX Designer! 🎨
+                {"role": "user", "content": "Summarize this document"},
+                {"role": "assistant", "content": """📄 **Document Overview**
 
-**Overview**: Remote position across Europe, $1,100/month
+This document discusses [main topic]. Key points include [point 1], [point 2], and [point 3]. 
 
-**Requirements**:
-• 0-2 years experience
-• Figma, Adobe XD, Miro, Canva
-• Portfolio + prototyping skills
+**Main Findings:**
+- First key finding
+- Second key finding  
+- Third key finding
 
-**Benefits**: Flexible hours, $150 tool budget, career growth 🚀"""},
+**Conclusion:** [Brief conclusion in 1-2 sentences]"""},
                 # Actual request
-                {"role": "user", "content": f"Summarize this document concisely:\n{context}"}
+                {"role": "user", "content": f"Summarize this document:\n{context[:3000]}"}
             ]
         else:
-            system_prompt = """You are a concise AI assistant. Maximum 5 sentences or 5 bullet points."""
+            system_prompt = """You are a helpful AI assistant. Be clear. Use emojis sparingly for clarity."""
             
             messages = [
                 {"role": "system", "content": system_prompt},
                 # Few-shot example 1
-                {"role": "user", "content": "What is this document about? [job posting text]"},
-                {"role": "assistant", "content": """Junior UI/UX Designer job posting! 🎨
+                {"role": "user", "content": "What is this document about?"},
+                {"role": "assistant", "content": """📄 This document presents the Transformer architecture for sequence transduction.
 
-**Key info**:
-• 💰 $1,100/month
-• 📍 Remote (Europe)
-• 🛠️ Figma, Adobe XD, Miro
-• ⏰ 0-2 years experience"""},
+**Key Points:**
+- Replaces recurrent layers with self-attention
+- Achieves state-of-the-art BLEU scores on translation
+- Trains faster than previous architectures"""},
                 # Few-shot example 2
-                {"role": "user", "content": "What are the requirements?"},
-                {"role": "assistant", "content": """**Requirements**:
-✅ 0-2 years UI/UX experience
-✅ Strong portfolio
-✅ Usability/accessibility knowledge
-✅ Basic prototyping skills"""}
+                {"role": "user", "content": "What are the main contributions?"},
+                {"role": "assistant", "content": """**Main Contributions:**
+✅ New attention-based architecture (no recurrence)
+✅ State-of-the-art translation results
+✅ Significantly reduced training time"""}
             ]
             
             # Add chat history
@@ -78,7 +76,7 @@ class LLMService:
             # Add actual question
             messages.append({
                 "role": "user", 
-                "content": f"Context:\n{context}\n\nQuestion: {question}\n\nAnswer concisely with emojis:"
+                "content": f"Context:\n{context}\n\nQuestion: {question}\n\nProvide a concise answer with key points:"
             })
         
         return messages
@@ -95,10 +93,10 @@ class LLMService:
                 LM_STUDIO_URL,
                 json={
                     "messages": messages,
-                    "temperature": 0.5,  # Lower for more focused responses
-                    "max_tokens": 150,  # Even shorter - force brevity!
+                    "temperature": 0.5,  
+                    "max_tokens": 500, 
                     "stream": True,
-                    "stop": ["\n\n\n", "In summary", "To summarize"]  # Stop verbose patterns
+                    "stop": ["\n\n\n", "In summary", "To summarize", "\n\n---"]
                 },
                 timeout=LM_STUDIO_TIMEOUT,
                 stream=True
@@ -151,10 +149,10 @@ class LLMService:
                 LM_STUDIO_URL,
                 json={
                     "messages": messages,
-                    "temperature": 0.3,  # Even lower for focused summaries
-                    "max_tokens": 150,  # Very short for concise summaries
+                    "temperature": 0.5,
+                    "max_tokens": 1000, 
                     "stream": False,
-                    "stop": ["\n\n\n", "In conclusion"]  # Stop verbose patterns
+                    "stop": ["\n\n\n", "In conclusion", "---"]
                 },
                 timeout=LM_STUDIO_TIMEOUT
             )
@@ -182,5 +180,3 @@ class LLMService:
                 status_code=500,
                 detail=f"LLM query failed: {str(e)}"
             )
-        
-        
