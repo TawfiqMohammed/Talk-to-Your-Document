@@ -18,7 +18,7 @@
 
 ### Why This Project?
 
-This project was built as part of the **AI Engineering Intern Assessment** to demonstrate:
+This project was built as to demonstrate:
 - End-to-end AI engineering skills
 - Full-stack development capabilities
 - Production-ready code architecture
